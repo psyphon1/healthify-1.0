@@ -22,11 +22,11 @@
   - Multiple models (Random Forest, SVM, XGBoost, Logistic Regression)
   - Ensemble and best-model selection built-in
 
-- **Next-Gen UX**
+- **Basic UX**
   - Adapts questions based on user (e.g. pregnancies only for women age >25)
   - Super clear error handling, never leaves the user confused
 
-- **Pro-Level Output**
+- **Output**
   - Real model probability + risk level (low/high/very high/borderline)
   - Download a medical-style PDF report in one click
 
@@ -113,7 +113,7 @@ Free for personal, academic, and commercial use with attribution.
 
 **Chinmay Duse**  
 [GitHub: psyphon1](https://github.com/psyphon1)  
-Twitter/X: [@psyphon1](https://twitter.com/psyphon1)
+LinkedIn: [Chinmay Duse](linkedin.com/in/chinmayduse/)
 
 ---
 
