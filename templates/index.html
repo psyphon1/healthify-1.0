@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Diabetes Prediction</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <style>
+      body { background: #f8fafc; }
+      .container { max-width: 430px; margin-top: 60px; }
+      .card { border-radius: 1.2rem; box-shadow: 0 2px 8px #00000013; padding: 2.2rem 2rem 1.5rem 2rem; border: none; background: #fff; }
+      h2 { font-weight: 700; font-size: 1.65rem; text-align: center; margin-bottom: 2rem; }
+      .btn-primary { border-radius: 2rem; font-weight: 600; letter-spacing: 1px; }
+      .form-group label { font-weight: 500; margin-bottom: .2rem; }
+      .alert { border-radius: 1rem; text-align: center; font-size: 1.08rem; font-weight: 500; }
+      .download-btn { margin-top: 1.2rem; }
+    </style>
+</head>
+<body>
+<div class="container">
+  <div class="card shadow-sm">
+    <h2>Diabetes Predictor</h2>
+    {% if error %}
+      <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+    <form method="POST">
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" name="name" class="form-control" placeholder="Full Name" value="{{ values.name or '' }}" required>
+      </div>
+      <div class="form-group">
+        <label>Gender</label>
+        <select name="gender" class="form-control" required>
+          <option value="">Select Gender</option>
+          <option value="female" {% if values.gender == 'female' %}selected{% endif %}>Female</option>
+          <option value="male" {% if values.gender == 'male' %}selected{% endif %}>Male</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Age</label>
+        <input type="number" name="age" class="form-control" placeholder="Age" value="{{ values.age or '' }}" required>
+      </div>
+      <div id="pregsDiv" class="form-group" style="display:none;">
+        <label>Pregnancies</label>
+        <input type="number" name="pregs" class="form-control" placeholder="Pregnancies" value="{{ values.pregs or '' }}">
+      </div>
+      <div class="form-group">
+        <label>Glucose</label>
+        <input type="number" name="gluc" class="form-control" placeholder="Glucose" value="{{ values.gluc or '' }}" required>
+      </div>
+      <div class="form-group">
+        <label>Blood Pressure</label>
+        <input type="number" name="bp" class="form-control" placeholder="Blood Pressure" value="{{ values.bp or '' }}" required>
+      </div>
+      <div class="form-group">
+        <label>Skin Thickness</label>
+        <input type="number" name="skin" class="form-control" placeholder="Skin Thickness" value="{{ values.skin or '' }}" required>
+      </div>
+      <div class="form-group">
+        <label>Insulin</label>
+        <input type="number" name="insulin" class="form-control" placeholder="Insulin" value="{{ values.insulin or '' }}" required>
+      </div>
+      <div class="form-group">
+        <label>BMI</label>
+        <input type="number" name="bmi" class="form-control" placeholder="BMI" value="{{ values.bmi or '' }}" required>
+      </div>
+      <div class="form-group">
+        <label>Pedigree</label>
+        <input type="number" name="func" class="form-control" placeholder="Pedigree" step="0.001" value="{{ values.func or '' }}" required>
+      </div>
+      <button class="btn btn-block btn-primary mt-3">Predict</button>
+    </form>
+    
+    {% if show_result %}
+      <div class="alert alert-info mt-4">
+        {% if values.name %}
+          <div><strong>{{ values.name }}</strong></div>
+        {% endif %}
+        Prediction: {{ "Diabetic" if prediction == 1 else "Not Diabetic" }}
+        {% if risk %} ({{ risk }}) {% endif %}
+        {% if prob is not none %}
+        <div>Probability: {{ (prob*100)|round(2) }}%</div>
+        {% endif %}
+        <form method="POST" action="/download-pdf" class="download-btn" target="_blank">
+          <input type="hidden" name="name" value="{{ values.name }}">
+          <input type="hidden" name="gender" value="{{ values.gender }}">
+          <input type="hidden" name="age" value="{{ values.age }}">
+          <input type="hidden" name="pregs" value="{{ values.pregs }}">
+          <input type="hidden" name="gluc" value="{{ values.gluc }}">
+          <input type="hidden" name="bp" value="{{ values.bp }}">
+          <input type="hidden" name="skin" value="{{ values.skin }}">
+          <input type="hidden" name="insulin" value="{{ values.insulin }}">
+          <input type="hidden" name="bmi" value="{{ values.bmi }}">
+          <input type="hidden" name="func" value="{{ values.func }}">
+          <input type="hidden" name="prediction" value="{{ prediction }}">
+          <input type="hidden" name="risk" value="{{ risk }}">
+          <input type="hidden" name="prob" value="{{ prob }}">
+          <button class="btn btn-success btn-block">Download PDF Report</button>
+        </form>
+      </div>
+    {% endif %}
+  </div>
+</div>
+<script>
+  function togglePregs() {
+    var gender = document.querySelector('[name=gender]').value;
+    var age = parseFloat(document.querySelector('[name=age]').value);
+    var pregsDiv = document.getElementById('pregsDiv');
+    if (gender === 'female' && age > 25) {
+      pregsDiv.style.display = 'block';
+    } else {
+      pregsDiv.style.display = 'none';
+      document.querySelector('[name=pregs]').value = '';
+    }
+  }
+  document.querySelector('[name=gender]').addEventListener('change', togglePregs);
+  document.querySelector('[name=age]').addEventListener('input', togglePregs);
+  window.onload = togglePregs;
+</script>
+</body>
+</html>
