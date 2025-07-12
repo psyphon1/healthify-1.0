@@ -6,3 +6,4 @@ xgboost
 imblearn
 shap
 gunicorn
+fpdf
