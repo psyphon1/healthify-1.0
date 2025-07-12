@@ -112,7 +112,7 @@ Free for personal, academic, and commercial use with attribution.
 ## 👨‍💻 Author
 
 **Chinmay Duse**  
-[GitHub: psyphon1](https://github.com/psyphon1)  
+Github: [psyphon1](https://github.com/psyphon1)  
 LinkedIn: [Chinmay Duse](linkedin.com/in/chinmayduse/)
 
 ---
