@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Diabetes Prediction</title>
+    <title>Healthify — Diabetes Prediction</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <style>
@@ -14,12 +14,15 @@
       .form-group label { font-weight: 500; margin-bottom: .2rem; }
       .alert { border-radius: 1rem; text-align: center; font-size: 1.08rem; font-weight: 500; }
       .download-btn { margin-top: 1.2rem; }
+      footer { color: #888; font-size: 1rem; }
+      footer a { color: #6d28d9; text-decoration:none; font-weight:500;}
+      @media (max-width:500px) { .container { max-width: 98vw; } }
     </style>
 </head>
 <body>
 <div class="container">
   <div class="card shadow-sm">
-    <h2>Diabetes Predictor</h2>
+    <h2>Healthify Diabetes Predictor</h2>
     {% if error %}
       <div class="alert alert-danger">{{ error }}</div>
     {% endif %}
@@ -117,5 +120,12 @@
   document.querySelector('[name=age]').addEventListener('input', togglePregs);
   window.onload = togglePregs;
 </script>
+
+<footer class="text-center mt-4 mb-2">
+  Made with ❤️ by 
+  <a href="https://github.com/psyphon1" target="_blank">
+    Chinmay Duse (psyphon1)
+  </a>
+</footer>
 </body>
 </html>
